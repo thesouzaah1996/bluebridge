@@ -12,7 +12,7 @@ public interface AuthService {
 
     Response<LoginResponse> login(LoginRequest loginRequest);
 
-    Response<?> AuthService(String email);
+    Response<?> forgetPassword(String email);
 
     Response<?> updatePasswordViaResetCode(ResetPasswordRequest resetPasswordRequest);
 }

@@ -74,32 +74,32 @@
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
 
-        <div class="header">
-            <h1>Welcome to Blue Bridge!</h1>
-        </div>
-
-        <div class="content">
-            <p>Hello <strong th:text="${name}"></strong>,</p>
-
-            <p>Thank you for registering! You are now part of our trusted telemedicine platform, connecting you with qualified healthcare professionals.</p>
-
-            <p>You can log in now to complete your profile and book your first appointment.</p>
-
-            <div class="button-container">
-                <a th:href="${loginLink}" class="button">Go to Login</a>
-            </div>
-
-            <p>We are here to help you manage your health with ease.</p>
-
-            <p>The Blue Bridge Team</p>
-        </div>
-
-        <div class="footer">
-            <p>© <span th:text="${T(java.time.Year).now()}">2026</span> Blue Bridge. All rights reserved.</p>
-        </div>
-
+    <div class="header">
+        <h1>Welcome to Blue Bridge!</h1>
     </div>
+
+    <div class="content">
+        <p>Hello <strong th:text="${name}"></strong>,</p>
+
+        <p>Thank you for registering! You are now part of our trusted telemedicine platform, connecting you with qualified healthcare professionals.</p>
+
+        <p>You can log in now to complete your profile and book your first appointment.</p>
+
+        <div class="button-container">
+            <a th:href="${loginLink}" class="button">Go to Login</a>
+        </div>
+
+        <p>We are here to help you manage your health with ease.</p>
+
+        <p>The Blue Bridge Team</p>
+    </div>
+
+    <div class="footer">
+        <p>© <span th:text="${T(java.time.Year).now()}">2026</span> Blue Bridge. All rights reserved.</p>
+    </div>
+
+</div>
 </body>
 </html>
