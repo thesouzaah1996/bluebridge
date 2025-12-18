@@ -189,8 +189,38 @@ public class AuthServiceImp implements AuthService {
 
     @Override
     public Response<?> updatePasswordViaResetCode(ResetPasswordRequest resetPasswordRequest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updatePasswordViaResetCode'");
+        String code = resetPasswordRequest.getCode();
+        String newPassword = resetPasswordRequest.getNewPassword();
+
+        PasswordResetCode resetCode = passwordResetRepo.findByCode(code)
+                .orElseThrow(() -> new BadRequestException("Invalid reset code."));
+
+        if (resetCode.getExpireDate().isBefore(LocalDateTime.now())) {
+            passwordResetRepo.delete(resetCode);
+            throw new BadRequestException("Reset code has expired.");
+        }
+
+        User user = resetCode.getUser();
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepo.save(user);
+
+        passwordResetRepo.delete(resetCode);
+
+        NotificationDTO passwordResetEmail = NotificationDTO.builder()
+                .recipient(user.getEmail())
+                .subject("Password updated successfully.")
+                .templateName("password-update-confirmation")
+                .templateVariables(Map.of(
+                        "name", user.getName()
+                ))
+                .build();
+
+        notificationService.sendEmail(passwordResetEmail, user);
+
+        return Response.builder()
+                .statusCode(200)
+                .message("Password updated successfully")
+                .build();
     }
 
     private void createPatientProfile(User user) {
