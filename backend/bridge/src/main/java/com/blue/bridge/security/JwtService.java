@@ -7,6 +7,7 @@ import java.util.function.Function;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import jakarta.annotation.PostConstruct;
 public class JwtService {
 
     @Value("${jwt.secret.string}")
-    private String JWT_SECRET;
+    private String JWT_SECRETE;
 
     @Value("${jwt.expiration.time}")
     private long EXPIRATION_TIME;
@@ -28,7 +29,7 @@ public class JwtService {
 
     @PostConstruct
     private void init() {
-        byte[] keyByte = JWT_SECRET.getBytes(StandardCharsets.UTF_8);
+        byte[] keyByte = JWT_SECRETE.getBytes(StandardCharsets.UTF_8);
         this.key = new SecretKeySpec(keyByte, "HmacSHA256");
     }
 
