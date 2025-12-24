@@ -22,32 +22,27 @@ public class PatientController {
     @GetMapping("/me")
     @PreAuthorize("hasAuthority('PATIENT')")
     public ResponseEntity<Response<PatientDTO>> getPatientProfile() {
-
         return ResponseEntity.ok(patientService.getPatientProfile());
     }
 
     @PutMapping("/me")
     @PreAuthorize("hasAuthority('PATIENT')")
     public ResponseEntity<Response<?>> updatePatientProfile(@RequestBody PatientDTO patient) {
-
         return ResponseEntity.ok(patientService.updatePatientProfile(patient));
     }
 
     @GetMapping("/{patientId}")
     public ResponseEntity<Response<PatientDTO>> getPatient(@PathVariable Long patientId) {
-
         return ResponseEntity.ok(patientService.getPatientById(patientId));
     }
 
     @GetMapping("/bloodgroup")
     public ResponseEntity<Response<List<BloodGroup>>> getAllBloodGroupEnum() {
-
         return ResponseEntity.ok(patientService.getAllBloodGroupEnums());
     }
 
     @GetMapping("/genotype")
     public ResponseEntity<Response<List<Genotype>>> getAllGenotypeEnum() {
-
         return ResponseEntity.ok(patientService.getAllGenoTypeEnums());
     }
 }

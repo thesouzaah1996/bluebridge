@@ -22,6 +22,8 @@ public class ConsultationDTO {
 
     private Long id;
 
+    private Long appointmentId;
+
     private LocalDateTime consultationDate;
 
     private String subjectiveNotes;
@@ -31,6 +33,4 @@ public class ConsultationDTO {
     private String assessment;
 
     private String plan;
-
-    private Appointment appointment;
 }

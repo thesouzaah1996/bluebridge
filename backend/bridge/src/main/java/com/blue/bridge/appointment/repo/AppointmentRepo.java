@@ -9,18 +9,21 @@ import org.springframework.data.repository.query.Param;
 
 import com.blue.bridge.appointment.entity.Appointment;
 
-public interface AppointmentRepo extends JpaRepository<Appointment, Long>{
+public interface AppointmentRepo extends JpaRepository<Appointment, Long> {
+
     List<Appointment> findByDoctor_User_IdOrderByIdDesc(Long userId);
 
     List<Appointment> findByPatient_User_IdOrderByIdDesc(Long userId);
 
     @Query("SELECT a FROM Appointment a " +
-        "WHERE a.doctor.id = :doctorId " +
-        "AND a.status = 'SCHEDULED' " +
-        "AND (a.startTime < :newEndTime AND a.endTime > :newStartTime)")
+            "WHERE a.doctor.id = :doctorId " +
+            "AND a.status = 'SCHEDULED' " +
+            "AND (" +
+            "    (a.startTime < :newEndTime AND a.endTime > :newStartTime)" +
+            ")")
     List<Appointment> findConflictingAppointments(
-        @Param("doctorId") Long doctorId,
-        @Param("newStartTime") LocalDateTime newStartTime,
-        @Param("newEndTime") LocalDateTime newEndTime
+            @Param("doctorId") Long doctorId,
+            @Param("newStartTime") LocalDateTime newStartTime,
+            @Param("newEndTime") LocalDateTime newEndTime
     );
 }
